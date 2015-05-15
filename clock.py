@@ -15,43 +15,43 @@ P11 = 12 #MIN32
 import imp
 import datetime as dt
 import time
+import RPi.GPIO as GPIO
 
-#Check for GPIO module
-if imp.find_module('RPi.GPIO') == True:
-  import RPi.GPIO as GPIO
-else:
-  sys.exit("GPIO Module not found!")
 
 #GPIO Pin setup
 GPIO.setmode(GPIO.BOARD)
-hourleds = [1 : P1, 2 : P2, 4 : P3, 8 : P4, 16 : P5]
-minleds = [1 : P6, 2 : P7, 4 : P8, 8 : P9, 16 : P10, 32 : P11]
+hourleds = {1 : P1, 2 : P2, 4 : P3, 8 : P4, 16 : P5}
+minleds = {1 : P6, 2 : P7, 4 : P8, 8 : P9, 16 : P10, 32 : P11}
 
 for i in hourleds:
-	GPIO.setup(i[], GPIO.OUT)
+	GPIO.setup(hourleds[i], GPIO.OUT)
 for i in minleds:
-	GPIO.setup(i[], GPIO.OUT)
+	GPIO.setup(minleds[i], GPIO.OUT)
 	
 #mainloop
 while True:
 	for i in hourleds:
-		GPIO.output(i[], False)
+		GPIO.output(hourleds[i], False)
 	for i in minleds:
-		GPIO.output(i[], False)
+		GPIO.output(minleds[i], False)
 		
 	#Get time
 	timenow = dt.datetime.now()
-	hr = (timenow.hour)
-	mi = (timenow.minute)
+	hr = timenow.hour
+	mi = timenow.minute
 
 	#Binary
 	for x in hourleds:
-		if hr > x && hr % x:
-			GPIO.output(x[], True)
+	if hr >= x and (hr % x:
+			GPIO.output(hourleds[x], True)
 		
-	for x in hourleds:
-		if mi > x && mi % x:
-			GPIO.output(x[], True)
+	for x in minleds:
+		if mi >= x and mi % x:
+			GPIO.output(minleds[x], True)
 
 	#Sleep
+	print("HR")
+	print hr
+	print("MI")
+	print(mi)
 	time.sleep(0.5)
