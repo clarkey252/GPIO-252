@@ -42,11 +42,11 @@ while True:
 
 	#Binary
 	for x in hourleds:
-	if hr >= x and (hr % x:
+		if hr >= x and (hr % x)%2:
 			GPIO.output(hourleds[x], True)
 		
 	for x in minleds:
-		if mi >= x and mi % x:
+		if mi >= x and (mi % x)%2:
 			GPIO.output(minleds[x], True)
 
 	#Sleep
